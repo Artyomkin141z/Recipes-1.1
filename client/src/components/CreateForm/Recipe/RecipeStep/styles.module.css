@@ -1,0 +1,26 @@
+.stepTitle{
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+
+.content textarea{
+    width: 795px;
+    height: 100px;
+}
+
+.content{
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+}
+
+.content img{
+    height: 100px;
+    margin-right: 20px;
+}
+
+.deleteContainer{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

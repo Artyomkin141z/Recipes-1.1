@@ -1,0 +1,14 @@
+.img{
+    width: 40px;
+    height: 40px;
+}
+
+.login{
+    margin-left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.login:hover{
+    cursor: pointer;
+}

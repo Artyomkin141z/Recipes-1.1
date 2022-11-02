@@ -1,0 +1,115 @@
+.form{
+    margin-top: 100px;
+    background-color: #ffffff;
+    padding: 20px 10px;
+    box-shadow: 0 0 20px #8a8a8a5c;
+    border-radius: 5px;
+}
+
+.title{
+    margin-bottom: 20px;
+}
+
+.title input{
+    width: 100%;
+    font-size: 20px;
+}
+
+.mainText textarea, .advice textarea{
+    width: 100%;
+    height: 100px;
+}
+
+.mainText, .advice{
+    margin-bottom: 20px;
+}
+
+.Ingredients, .stepsContainer{
+    border: 1px solid #a5a5a5;
+    padding: 20px 10px;
+}
+
+.servings{
+    display: flex;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.servings p{
+    margin-right: 10px;
+}
+
+.IngredientBlock{
+    margin-bottom: 20px;
+}
+
+.ingredient{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.properties{
+    display: flex;
+}
+
+.gramm{
+    display: flex;
+    margin-right: 30px;
+    align-items: center;
+}
+
+.gramm p{
+    margin-right: 5px;
+}
+
+.exportTitle img{
+    height: 150px;
+    margin-bottom: 20px;
+}
+
+.exportTitle{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #e2e2e2;
+    padding: 20px;
+    border-radius: 10px;
+}
+
+.energyContainer{
+    display: inline-flex;
+    width: 100%;
+    margin: 20px 0;
+}
+
+.energy{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin:  0 auto;
+}
+
+.energy div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 20px;
+}
+
+.energy div input{
+    margin: 20px 0 10px;
+}
+
+.stepsContainer{
+    margin-bottom: 20px;
+}
+
+.saveRecipe button{
+    display: block;
+    width: 120px;
+    height: 20px;
+    margin: 0 auto;
+}

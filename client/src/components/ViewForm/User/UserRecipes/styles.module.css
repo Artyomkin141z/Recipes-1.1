@@ -1,0 +1,40 @@
+.recipes{
+    margin: 20px 20px;
+}
+
+.createRecipe{
+    display: flex;
+    /* justify-content: space-between; */
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.createRecipe img{
+    width: 40px;
+    margin: 0 40px;
+    transition: 1s;
+}
+
+.createRecipe img:hover{
+    transform: rotate(40deg);
+    cursor: pointer;
+}
+
+.createRecipe p{
+    font-size: 20px;
+    font-weight: 500;
+}
+
+.userRecipes{
+    display: flex;
+    align-items: center;
+}
+
+.userRecipes p{
+    font-size: 20px;
+}
+
+.userRecipes img{
+    height: 20px;
+    margin: 0 10px;
+}

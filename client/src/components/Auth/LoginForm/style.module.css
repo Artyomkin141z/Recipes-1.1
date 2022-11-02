@@ -1,0 +1,88 @@
+.form{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background-color: #3c3c3c7a;
+
+    animation-duration: 0.5s;
+    animation-name: form;
+}
+
+@keyframes form {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.login{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    transform: translate(0, 50%);
+}
+
+.container{
+    background-color: #ffffff;
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    box-shadow: 0 0 50px #3c3c3cc7;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.close{
+    position:absolute;
+    height: 15px;
+    width: 15px;
+    right: 0;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.login div{
+    margin-bottom: 10px;
+}
+
+.login div input{
+    border-radius: 5px;
+    border: 1px solid ;
+}
+
+.login button{
+    margin: 10px;
+    border-radius: 5px;
+    width: 100px;
+    height: 25px;
+    border: 1px solid #135d0c;
+    background-color: #28d863d8;
+    color: #494949;
+    transition: 1s;
+}
+
+.login button:hover{
+    width: 150px;
+    border-radius: 2px;
+    border: 1px solid #135d0c;
+    background-color: #31e16c9c;
+    cursor: pointer;
+}
+
+.login a{
+    color: #3a1ca6;
+}
+
+.login a:hover{
+    color: #E13E3E;
+}
