@@ -4,10 +4,30 @@
 
     box-shadow: 0 0 20px #8a8a8a5c;
     border-radius: 5px;
+    padding: 20px;
 }
 
-.recipes h1{
-    font-size: 40px;
+.title{
     text-align: center;
     padding: 50px 0;
+}
+.title h1{
+    font-size: 40px;
+}
+.title p {
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.sorting{
+    display: flex;
+    margin-bottom: 5px;
+}
+
+.sorting p{
+    margin-right: 10px;
+}
+
+.navigator{
+    border-bottom: 1px solid #595959;
 }

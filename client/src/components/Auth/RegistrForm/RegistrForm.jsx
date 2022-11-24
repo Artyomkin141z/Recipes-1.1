@@ -1,7 +1,7 @@
 import styles from './style.module.css'
 
 import React, { useContext, useState } from "react";
-import { Context } from "../..";
+import { Context } from '../../..';
 import {observer} from 'mobx-react-lite'
 import { Link } from 'react-router-dom';
 

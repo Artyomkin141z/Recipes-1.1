@@ -1,6 +1,7 @@
 import style from './style.module.css'
 
 import Recipe from '../Recipe/Recipe';
+import Navigation from './Navigation';
 
 function RecipesList(){
     const recipes = [
@@ -49,8 +50,11 @@ function RecipesList(){
         <>
             <div className='container'>
                 <div className={style.recipes}>
-                    <h1>Рецепты</h1>
-                    <p>Всего 3 рецепта</p>
+                    <div className={style.title}>
+                        <h1>Рецепты</h1>
+                        <p>Всего 3 рецепта</p>
+                    </div>
+                    <Navigation />
                     { 
                         recipes.map((item) => {
                             return (
