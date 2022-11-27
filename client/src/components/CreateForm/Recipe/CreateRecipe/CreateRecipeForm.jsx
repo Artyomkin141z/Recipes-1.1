@@ -1,13 +1,39 @@
 import RecipeService from '../../../../services/RecipeService'
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import IngredientForm from '../RecipeIngredient/IngredientForm';
 import StepForm from '../RecipeStep/StepForm';
 import styles from './styles.module.css'
 
 import exportImg from '../../../../assets/images/export-file.png'
+import CreateIngredient from '../../Catalog/CreateIngredient';
+
+import DatalistInput, { useComboboxControls } from 'react-datalist-input';
+import 'react-datalist-input/dist/styles.css';
+import CatalogService from '../../../../services/CatalogeService';
 
 const CreateRecipeForm = () => {
+    const { setIngredientValue, ingredientValue } = useComboboxControls({ initialValue: '' });
+    const [ingredientsInput, setIngredientsInput] = useState([])
+    useEffect(() => {getIngredientsValue()}, [])
+    
+    async function getIngredientsValue(){
+        try{
+            const response = await CatalogService.getIngredients()
+            const ingredients = response.data.ingredients;
+            ingredients.forEach(function(item) {
+                item.value = item.ingredient
+            });
+            setIngredientsInput(ingredients)
+            //console.log(ingredients);
+        }catch(e){
+            console.log(e);
+        }finally{
+
+        }
+    }
+
+
     const recipe = {
         name: '',
         img: '',
@@ -41,6 +67,7 @@ const CreateRecipeForm = () => {
         recipe.advice = advice;
         return recipe;
     }
+    const [isShowCreateIngredientForm, setIsShowCreateIngredientForm] = useState(false);
 
     const [name, setName] = useState('');
     const [img, setImg] = useState('');
@@ -74,8 +101,10 @@ const CreateRecipeForm = () => {
 
     async function createRecipe(){
         try{
-            const response = await RecipeService.createRecipe(recipe)
-            console.log(response);
+            if(name && time && content && numberServings && calories && proteins && fats && carbohydrates && ingredients && steps){
+                const response = await RecipeService.createRecipe({recipe, token: localStorage.token})
+                console.log(response);
+            }        
         }catch(e){
             console.log(e);
         }finally{
@@ -86,6 +115,11 @@ const CreateRecipeForm = () => {
     return(
         <div className='container'>
             <div className={styles.form}>
+                <CreateIngredient 
+                    setIsShowCreateIngredientForm = {setIsShowCreateIngredientForm}
+                    isShowCreateIngredientForm = {isShowCreateIngredientForm}
+                    setIngredientsInput = {setIngredientsInput}
+                />
                 <div className={styles.title}>
                     <p>Название</p>
                     <input 
@@ -98,14 +132,14 @@ const CreateRecipeForm = () => {
                 </div>
                 {/* Энергетическая ценность и кнопка загрузки изображения */}
                 <div className={styles.energyContainer}>
-                    <div className={styles.exportTitle}>
+                    {/* <div className={styles.exportTitle}>
                         <img src={exportImg} alt='Загрузить изображение' 
                             onClick={() => {
                                 
                             }}
                         />
                         <p>Загрузить изображение</p>
-                    </div>
+                    </div> */}
                     <div className={styles.energy}>
                             <div>
                                 <p>ВРЕМЯ ПРИГОТОВЛЕНИЯ</p>
@@ -193,7 +227,7 @@ const CreateRecipeForm = () => {
                                 {ingredients.map((item, index) => {  
                                     return <IngredientForm 
                                         key = {item.key}
-                                        ingredient = {item.ingredient}
+                                        ingredient = {item.ingredient?.ingredient}
                                         index = {index}
                                         deleteIngredient = {deleteIngredient}
                                         item = {item}
@@ -201,32 +235,37 @@ const CreateRecipeForm = () => {
                                 })}
                             </ul>
                             <div>
-                                <input 
-                                    onChange={(e) => {
-                                        setIngredient(e.target.value)
+                                <DatalistInput
+                                    placeholder="Ингредиент"
+                                    value={ingredientValue}
+                                    setValue={setIngredientValue}
+                                    label="Выберите ингредиент"
+                                    showLabel={true}
+                                    items={[...ingredientsInput]}
+                                    onSelect={(item) => {
+                                        //console.log(item);
+                                        setIngredient(item)
+                                        //setIngredientValue({});
                                     }}
-                                    value={ingredient}
-                                    type='text'
-                                    placeholder='Ингредиент'
-                                    list='ingredient'
                                 />
-                                <datalist id="ingredient">
-                                    <option value="Чебурашка"></option>
-                                    <option value="Крокодил Гена"></option>
-                                    <option value="Шапокляк"></option>
-                                </datalist>
                                 <button
                                     onClick={() => {
-                                        if(ingredient.length > 3){
+                                        //if(ingredient.length > 3){
                                             setKey(key + 1);
                                             setIngredients([...ingredients, {
                                                 'key': key,
-                                                'ingredient': ingredient
+                                                'ingredient': ingredient.ingredient,
+                                                'id': ingredient.id
                                             }])
                                             setIngredient('')
-                                        }
+                                        //}
                                     }}
                                 >Добавить</button>
+                                <button
+                                    onClick={() => {
+                                        setIsShowCreateIngredientForm(true);
+                                    }}
+                                >Создать ингредиент</button>
                             </div>
                         </div>
                     </div>

@@ -1,0 +1,59 @@
+.form{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 100;
+    background-color: #3c3c3c7a;
+
+    animation-duration: 0.5s;
+    animation-name: form;
+}
+
+@keyframes form {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+.container{
+    background-color: #ffffff;
+    width: 300px;
+    height: 300px;
+    border-radius: 10px;
+    box-shadow: 0 0 50px #3c3c3cc7;
+
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    margin-right: -50%;
+    transform: translate(-50%, -50%);
+}
+
+.close{
+    position:absolute;
+    height: 15px;
+    width: 15px;
+    right: 0;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.input{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.input div{
+    margin-bottom: 20px;
+}
+
+.AAAAAA{
+    margin-top: 100px;
+}

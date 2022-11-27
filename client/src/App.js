@@ -14,6 +14,7 @@ import UserProfile from './components/ViewForm/User/Profile/Profile.jsx'
 import UserRecipes from './components/ViewForm/User/UserRecipes/UserRecipes';
 import CreateRecipe from './pages/CreateRecipe';
 import Recipe from './pages/Recipe';
+import UserBookmarks from './components/ViewForm/User/UserBookmarks/UserBookmarks';
 
 function App() {
   const {store} = useContext(Context)
@@ -36,11 +37,12 @@ function App() {
         <Routes> 
           <Route path='/' element={<Home />} />
           <Route path='/recipes' element={<Recipes />} />
-          <Route path='/recipe' element={<Recipe />} />
+          <Route path='/recipe/:id' element={<Recipe />} />
           <Route path='/registration' element={<RegistrForm />} />
           <Route path='/user' element={<Profile />}>
             <Route path='' element={<UserProfile />}/>
             <Route path='recipes' element={<UserRecipes />} />
+            <Route path='bookmarks' element={<UserBookmarks />} />
           </Route>
           <Route path='/create/recipe' element={<CreateRecipe />}/>
         </Routes>

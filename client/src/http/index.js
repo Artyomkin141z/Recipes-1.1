@@ -16,12 +16,12 @@ $api.interceptors.response.use((config) => {
     return config;
 }, async (error) => {
     const originalRequest = error.config;
-    if(error.response.status === 401 && error.config && originalRequest._isRetry === false){
+    if(error.response.status === 401 && error.config && !originalRequest._isRetry){
+        console.log('Сработала ошибка')
         originalRequest._isRetry = true;
         try{
             const responce = await axios.get(`${API_URL}/api/refresh`, {withCredentials: true})
-            localStorage.setItem('token', responce.data.tokens.accesToken)
-            console.log(responce);
+            localStorage.setItem('token', responce.data.tokens.accessToken)
             return $api.request(originalRequest);
         }catch(e){
             console.log('Не авторизован');

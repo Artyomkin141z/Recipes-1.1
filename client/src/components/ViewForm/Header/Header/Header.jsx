@@ -23,10 +23,12 @@ const Header = (props) => {
                         <img src={searcIcon} alt='' />
                         <p>Поиск</p>
                     </div>
-                    <div className={styles.book}>
-                        <img className={styles.bookmark} src={bookmark} alt=''/>
-                        <p>Мои закладки</p>
-                    </div>
+                    <Link to='/user/bookmarks'>
+                        <div className={styles.book}>
+                            <img className={styles.bookmark} src={bookmark} alt=''/>
+                            <p>Мои закладки</p>
+                        </div>
+                    </Link>
                     <Link to='/user'>
                         <img className={styles.userImg} src={userImg} alt='Повар'/>
                     </Link>

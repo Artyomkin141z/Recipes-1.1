@@ -1,0 +1,11 @@
+.ingredient{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.properties, .gramm{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

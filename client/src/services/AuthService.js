@@ -11,6 +11,6 @@ export default class AuthService {
     }
 
     static async logout(){
-        return $api.get('/api/logout', {withCredentials: true})
+        return $api.post('/api/logout', {withCredentials: true})
     }
 }

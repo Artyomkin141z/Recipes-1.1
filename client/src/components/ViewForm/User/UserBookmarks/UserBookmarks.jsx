@@ -1,23 +1,22 @@
 import styles from './styles.module.css'
-import createRecipeImg from '../../../../assets/images/createRecipe.png'
 import arrow from '../../../../assets/images/down-arrow.png'
-import { Link } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 import RecipeService from '../../../../services/RecipeService'
+import { Link } from 'react-router-dom'
 
-const UserRecipes = () => {
-    useEffect(() => {getUserRecipes()}, [])
+const UserBookmarks = () => {
+    useEffect(() => {getUserRecipesBookmarks()}, [])
     const [isLoading, setLoading] = useState(true);
     const [recipeList, setRecipeList] = useState([]);
 
-    async function getUserRecipes(){
+    async function getUserRecipesBookmarks(){
         setLoading(true);
         try{
-            const response = await RecipeService.getUserRecipes();
+            const response = await RecipeService.getUserRecipesBookmarks();
             //setUser(response.data.user);
             const recipes = response.data.recipes;
             setRecipeList(recipes);
-            //console.log(recipes);
+            //console.log(response);
             //console.log(response.data.user);
         }catch(e){
             console.log(e)
@@ -25,17 +24,14 @@ const UserRecipes = () => {
             setLoading(false);
         }
     }
-    return(
-        <div className={styles.recipes}>
-            <div className={styles.createRecipe}>
-                <p>Создать рецепт</p>
-                <Link to='/create/recipe'><img src={createRecipeImg} alt='Создать рецепт'/></Link>
-            </div>
-            <div className={styles.userRecipes}>
-                <p>Рецепты</p>
-                <img src={arrow} alt=''/>
-            </div>
-            <div>
+
+    return <>
+    <div className={styles.recipes}>
+        <div className={styles.userRecipes}>
+            <p>Рецепты</p>
+            <img src={arrow} alt=''/>
+        </div>
+        <div>
                 {
                     recipeList.map((recipe) => {
                         return (<div className={styles.userRecipe}>
@@ -61,8 +57,8 @@ const UserRecipes = () => {
                     })
                 }
             </div>
-        </div>
-    )
+    </div>
+    </>
 }
 
-export default UserRecipes;
+export default UserBookmarks

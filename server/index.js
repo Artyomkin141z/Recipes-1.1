@@ -3,6 +3,8 @@ const express = require('express');
 const cors = require('cors')
 const cookieParser = require('cookie-parser')
 const router = require('./router/user.routes')
+const routerRecipe = require('./router/recipe.routes')
+const routerCatalog = require('./router/catalog.routes')
 const errorMiddleware = require('./middleware/error.middleware')
 
 const PORT = process.env.PORT || 8080
@@ -15,6 +17,8 @@ app.use(cors({
     origin: process.env.CLIENT_URL
 }))
 app.use('/api', router);
+app.use('/recipe', routerRecipe);
+app.use('/catalog', routerCatalog);
 app.use(errorMiddleware);
 
 const start = async () => {

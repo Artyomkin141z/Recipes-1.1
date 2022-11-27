@@ -6,7 +6,8 @@ export default class UserService {
         return $api.get('/users')
     }
 
-    static async getOneUser(){
-        return $api.get('/api/user')
+    static async getMyInform(){
+        const token = localStorage.token
+        return $api.post('/api/user/userInform', {token})
     }
 }

@@ -75,7 +75,7 @@ class UserService {
         }
         const userData = tokenService.validateRefreshToken(refreshToken);
         const tokenDB = await tokenService.findToken(refreshToken);
-        const refreshTokenDB = tokenDB.recordset[0].refreshToken;
+        const refreshTokenDB = tokenDB?.recordset[0]?.refreshToken;
 
         if(!userData || !refreshTokenDB){
             throw ApiError.UnathorizedError();
@@ -97,13 +97,20 @@ class UserService {
         const tokens = tokenService.generateTokens({...userDto});
 
         await tokenService.saveToken(user.id, tokens.refreshToken);
-
         return {tokens: {...tokens}, user: userDto}
     }
 
     async getAllUsers(){
         const result = await query(userQueries.getUsers())
         return result.recordset;
+    }
+
+    async getUserInform(token){
+        const userData = tokenService.validateAccessToken(token);
+        //console.log(`userData: ${userData.id}`);
+        const result = await query(userQueries.getUser(userData.id))
+        //console.log(result.recordset[0])
+        return result.recordset[0];
     }
 }
 

@@ -1,10 +1,10 @@
-import styles from './styles.modules.css'
+import styles from './styles.module.css'
 
 const IngredientForm = (props) => {
     return (
         <li>
             <div className={styles.ingredient}>
-                <p>{props.ingredient}</p>
+                <p>{props.item.ingredient}</p>
                 <div className={styles.properties}>
                     <div className={styles.gramm}>
                         <p>Граммы:</p>

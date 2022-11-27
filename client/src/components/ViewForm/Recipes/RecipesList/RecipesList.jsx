@@ -2,8 +2,29 @@ import style from './style.module.css'
 
 import Recipe from '../Recipe/Recipe';
 import Navigation from './Navigation';
+import { useEffect, useState } from 'react';
+import RecipeService from '../../../../services/RecipeService';
 
 function RecipesList(){
+    useEffect(() => {getRecipes()}, [])
+    const [isLoading, setLoading] = useState(true);
+    const [recipeList, setRecipeList] = useState([]);
+
+    async function getRecipes(){
+        setLoading(true);
+        try{
+            const response = await RecipeService.getRecipes();
+            //setUser(response.data.user);
+            const recipes = response.data.recipes;
+            setRecipeList(recipes[0]);
+            console.log(recipes);
+            //console.log(response.data.user);
+        }catch(e){
+            console.log(e)
+        }finally{
+            setLoading(false);
+        }
+    }
     const recipes = [
         {
             id: 1,
@@ -56,7 +77,7 @@ function RecipesList(){
                     </div>
                     <Navigation />
                     { 
-                        recipes.map((item) => {
+                        recipeList.map((item) => {
                             return (
                                 <Recipe 
                                     key = {item.id}

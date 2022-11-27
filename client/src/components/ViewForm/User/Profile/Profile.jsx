@@ -15,9 +15,9 @@ const Profile = () => {
     async function getUser(){
         setLoading(true);
         try{
-            const response = await UserService.getOneUser();
-            setUser(response.data);
-            console.log(response);
+            const response = await UserService.getMyInform();
+            setUser(response.data.user);
+            //console.log(response.data.user);
         }catch(e){
             console.log(e)
         }finally{
@@ -37,8 +37,8 @@ const Profile = () => {
                 <div className={styles.personInf}>
                     <img className={styles.userImg} src={userNoImg} alt='Какой-то замечательный повар'/>
                     <div>
-                        <p className={styles.name}>{user.user_name + ' ' + user.user_surname}</p>
-                        <p className={styles.login}>{user.user_login}</p>
+                        <p className={styles.name}>{user.name + ' ' + user.surname}</p>
+                        <p className={styles.login}>{user.login}</p>
                     </div>  
                 </div>
                 <Link to = '/'>

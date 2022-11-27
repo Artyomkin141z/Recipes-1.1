@@ -39,7 +39,7 @@ class UserController {
         try{
             const {refreshToken} = req.cookies;
             const userData = await userService.refresh(refreshToken)
-            console.log(userData);
+            //console.log(userData);
             res.cookie('refreshToken', userData.tokens.refreshToken, {maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true})
             return res.json(userData);
         }catch(e){
@@ -51,6 +51,18 @@ class UserController {
         try{
             const users = await userService.getAllUsers();
             return res.json({users: users});
+        }catch(e){
+            next(e);
+        }
+    }
+
+    async getUserInform(req, res, next){
+        try{
+            const token = req.body.token;
+            //console.log(`token: ${token}`)
+            const user = await userService.getUserInform(token);
+            //console.log('user', user)
+            return res.json({user: user});
         }catch(e){
             next(e);
         }

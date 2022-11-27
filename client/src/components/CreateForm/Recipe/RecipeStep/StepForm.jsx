@@ -13,7 +13,7 @@ const StepForm = (props) => {
                 >Удалить</button>
             </div>
             <div className={styles.content}>
-                <img src={uploadImg} alt='Загрузить изображение'/>
+                {/* <img src={uploadImg} alt='Загрузить изображение'/> */}
                 <div>
                     <p>Содержание:</p>
                     <textarea onChange={(e) => {

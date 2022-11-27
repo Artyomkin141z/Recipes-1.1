@@ -4,7 +4,7 @@ import axios from 'axios'
 import {API_URL} from '../http/index'
 
 export default class Store{
-    user = {}
+    user = 0;
     isAuth = false;
     isLoading = false;
 
@@ -19,6 +19,9 @@ export default class Store{
     setUser(user){
         this.user = user;
     }
+    getUser(){
+        return this.user;
+    }
 
     setLoading(bool){
         this.isLoading = bool;
@@ -30,8 +33,8 @@ export default class Store{
             //console.log(response);
             localStorage.setItem('token', response.data.tokens.accessToken)
             this.setAuth(true);
-            this.setUser(response.data.user)
-            //console.log(response.data.tokens.accessToken);
+            this.setUser(response.data.user.id)
+            console.log(response.data.user);
             return response.status
         }catch(e){
             console.log(e.response?.data?.message)
@@ -44,7 +47,7 @@ export default class Store{
             //console.log(response);
             localStorage.removeItem('token')
             this.setAuth(false);
-            this.setUser({})
+            this.setUser(0)
         }catch(e){
             console.log(e)
         }
@@ -67,7 +70,7 @@ export default class Store{
             console.log(response);
             localStorage.setItem('token', response.data.tokens.accessToken)
             this.setAuth(true);
-            this.setUser(response.data.user)
+            this.setUser(response.data.user.id)
         }catch(e){
             console.log(e.response?.data?.message)
         }finally{
