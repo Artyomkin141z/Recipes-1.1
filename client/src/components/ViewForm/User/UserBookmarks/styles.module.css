@@ -72,3 +72,7 @@
 .userRecipediv_p{
     margin: 0 5px;
 }
+
+.userRecipediv2 div{
+    display: flex;
+}

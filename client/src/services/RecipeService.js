@@ -35,4 +35,16 @@ export default class RecipeService {
     static async getRecipeComments(recipeId){
         return $api.post('/recipe/get/comments', {recipeId})
     }
+
+    static async deleteUserRecipeCommment(commentId){
+        return $api.post('/recipe/delete/comment', {commentId})
+    }
+
+    static async searchRecipes(ingredientId, serchStr){
+        return $api.post('/recipe/search', {ingredientId, serchStr})
+    }
+
+    static async deleteRecipe(recipeId){
+        return $api.post('/recipe/delete', {recipeId})
+    }
 }

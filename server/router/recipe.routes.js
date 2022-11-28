@@ -15,5 +15,8 @@ router.post('/add/like', authMiddleware , recipeController.addLike);
 router.get('/bookmarks', authMiddleware , recipeController.getUserRecipesBookmarks);
 router.post('/add/comment', authMiddleware , recipeController.addRecipeComment);
 router.post('/get/comments', recipeController.getRecipeComments);
+router.post('/delete/comment', authMiddleware, recipeController.deleteUserRecipeCommment);
+router.post('/search', recipeController.searchRecipes);
+router.post('/delete', authMiddleware , recipeController.deleteRecipe);
 
 module.exports = router;

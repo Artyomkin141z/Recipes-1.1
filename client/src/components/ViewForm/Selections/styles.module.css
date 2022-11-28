@@ -1,0 +1,64 @@
+.selections{
+    margin-top: 120px;
+    background-color: #ffffff;
+
+    box-shadow: 0 0 20px #8a8a8a5c;
+    border-radius: 5px;
+    padding: 20px;
+}
+
+.title{
+    text-align: center;
+    padding: 50px 0;
+}
+.title h1{
+    font-size: 40px;
+}
+.title p {
+    margin-top: 10px;
+    font-size: 15px;
+}
+
+.selection{
+    margin: 20px 0;
+}
+
+.selectionTitle{
+    width: 100%;
+    height: 250px;
+    background-image: url(../../../assets/images/forSelection.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: 0px -300px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.selectionTitleP {
+    color: #ffffff;
+    font-weight: 900;
+    font-size: 100px;
+    text-shadow: 0 0 50px #000000;
+}
+
+.author{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    color: #ffffff;
+    font-weight: 500;
+    font-size: 16px;
+    padding: 10px;
+    text-shadow: 0 0 10px #000000;
+}
+
+.selectionContent{
+    padding: 10px;
+}
+
+.selectionContent p{
+    font-size: 15px;
+    font-weight: 400;
+}

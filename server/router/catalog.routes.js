@@ -9,6 +9,7 @@ const router = new Router();
 //router.post('/create/ingredient', authMiddleware, recipeController.createRecipe);
 router.post('/create/ingredient', authMiddleware, recipeController.createIngredient);
 router.get('/get/ingredients', authMiddleware, recipeController.getIngredients);
+router.get('/get/recipes', authMiddleware, recipeController.getRecipesTitles);
 
 
 module.exports = router;

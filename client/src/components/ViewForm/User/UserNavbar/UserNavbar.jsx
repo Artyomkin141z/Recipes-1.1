@@ -6,7 +6,7 @@ const UserNavbar = () => {
         <div className={styles.menu}>
             <Link to='/user/bookmarks'>Закладки</Link>
             <Link to='/user/recipes'>Рецепты</Link>
-            <Link>Подборки</Link>
+            <Link to='/user/selections'>Подборки</Link>
             <Link to='/user'>Профиль</Link>
         </div>
     )

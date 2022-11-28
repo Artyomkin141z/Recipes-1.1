@@ -37,7 +37,7 @@ const Recipe = () => {
         setLoading(true);
         try{
             const response = await RecipeService.getRecipe(id);
-            //setUser(response.data.user);
+            console.log(response.data);
             const recipe = response.data.recipe;
             setRecipe(recipe);
             console.log(recipe);

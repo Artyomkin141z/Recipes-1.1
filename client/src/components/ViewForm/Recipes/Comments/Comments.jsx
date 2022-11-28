@@ -41,9 +41,23 @@ const Comments = ({userId}) => {
         }
     }
 
-    function setDeleteButton(id) {  
+    async function deleteUserRecipeCommment(id){
+        try{
+            const response = await RecipeService.deleteUserRecipeCommment(id)
+            const comments = response.data.comments
+            //setIngredientsInput(ingredients)
+            setComments(comments)
+            console.log(comments);
+        }catch(e){
+            console.log(e);
+        }finally{
+
+        }
+    }
+
+    function setDeleteButton(id, comId) {  
         if(store.user === id) {
-            return <button>Удалить</button>
+            return <button onClick={() => {deleteUserRecipeCommment(comId)}}>Удалить</button>
         }
     }
 
@@ -75,7 +89,7 @@ const Comments = ({userId}) => {
                         <p>{comment.comment}</p>
                     </div>
                 </div>
-                <div className={styles.deleteButton}>{setDeleteButton(comment.commentator_id)}</div>
+                <div className={styles.deleteButton}>{setDeleteButton(comment.commentator_id, comment.id)}</div>
             </div>
             )
         })}

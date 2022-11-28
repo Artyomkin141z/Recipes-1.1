@@ -10,16 +10,22 @@ import {useState } from 'react';
 import { showLoginForm } from '../../../../services/LoginFormService';
 //import { Context } from '../..';
 import { Link } from 'react-router-dom';
+import Search from '../../Search/Search';
 
 const Header = (props) => {
     const [isShowLoginForm, setIsShowLoginForm] = useState(false);
+    const [isShowSearchForm, setIsShowSearchForm] = useState(false);
     //const {store} = useContext(Context)
 
     const checkAuth = () => {
         if(props.isAuth){
             return (
                 <div className={styles.rigth}>
-                    <div className={styles.search}>
+                    <div className={styles.search}
+                    onClick={() => {
+                        setIsShowSearchForm(true)
+                    }}
+                    >
                         <img src={searcIcon} alt='' />
                         <p>Поиск</p>
                     </div>
@@ -50,15 +56,25 @@ const Header = (props) => {
         }
     }
 
+    function showSearchForm(isShowSearchForm, setIsShowSearchForm){
+        if(isShowSearchForm) {
+            return <Search 
+                isShowSearchForm = {isShowSearchForm}
+                setIsShowSearchForm = {setIsShowSearchForm}
+            />
+        }
+    }
+
     return(
         <div className={styles.form}>
+            {showSearchForm(isShowSearchForm, setIsShowSearchForm)}
             <div className={styles.header}>
                 {showLoginForm(isShowLoginForm, setIsShowLoginForm)}
                 <div className={styles.container}>
                     <div className={styles.left}>
                         <Logo />
                         <a href='/recipes'>Рецепты</a>
-                        <a href='/'>Подборки</a>
+                        <a href='/selections'>Подборки</a>
                     </div>
                     {checkAuth()}
                 </div>        

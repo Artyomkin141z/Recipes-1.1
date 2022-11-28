@@ -53,10 +53,11 @@ class RecipeController {
         try{
             const {id, token} = req.body;
             const validToken = tokenService.validateAccessToken(token);
-            const userId = validToken.id;
+            const userId = validToken?.id;
             
-            console.log(userId)
+            //console.log(userId)
             const recipe = await RecipeService.getRecipe(id);
+            console.log(recipe)
             let isMy = false;
             if(userId == recipe[0][0].user_id){
                 isMy = true;
@@ -67,7 +68,7 @@ class RecipeController {
                 recipeId: recipe[0][0].id,
                 name: recipe[0][0].title,
                 img: recipe[0][0].img,
-                author: recipe[0][0].user_id,
+                author: recipe[0][0].name + ' ' + recipe[0][0].surname,
                 categories: recipe[2],
                 content: recipe[0][0].content,
                 time: recipe[0][0].time,
@@ -96,7 +97,7 @@ class RecipeController {
         try{
             //console.log('Ищем ингредиенты')
             const result = await RecipeService.getRecipes();
-            console.log(result);
+            //console.log(result);
             return res.json({recipes: result});
         }catch(e){
             next(e);
@@ -123,11 +124,11 @@ class RecipeController {
             const validToken = tokenService.validateAccessToken(token);
             const userId = validToken.id;
             const {recipeId} = req.body;
-            console.log('userId:', userId)
-            console.log('recipeId:', recipeId)
+            //console.log('userId:', userId)
+            //console.log('recipeId:', recipeId)
             //console.log('Ищем ингредиенты')
             const result = await RecipeService.getLikes(recipeId, userId);
-            console.log(result);
+            //console.log(result);
             return res.json({numberLikes: result[0][0].numberLikes, isLikes: result[1][0].isLikes});
         }catch(e){
             next(e);
@@ -188,6 +189,54 @@ class RecipeController {
             const result = await RecipeService.getRecipeComments(recipeId);
             //console.log(result)
             return res.json({comments: result});
+        }catch(e){
+            next(e);
+        }
+    }
+
+    async deleteUserRecipeCommment(req, res, next){
+        try{
+            const commentId = req.body.commentId
+            //console.log(comment)
+            const result = await RecipeService.deleteUserRecipeCommment(commentId);
+            //console.log(result)
+            return res.json({comments: result});
+        }catch(e){
+            next(e);
+        }
+    }
+
+    async searchRecipes(req, res, next){
+        try{
+            //console.log('Ищем рецеты')
+            const {ingredientId, serchStr} = req.body;
+            //console.log('ingredientId:', ingredientId, 'serchStr:', serchStr);
+            const result = await RecipeService.searchRecipes(+ingredientId, serchStr);
+            //console.log(result);
+            return res.json({recipes: result});
+        }catch(e){
+            next(e);
+        }
+    }
+
+    async getRecipesTitles(req, res, next){
+        try{
+            //console.log('Ищем рецеты')
+            const result = await RecipeService.getRecipesTitles();
+            //console.log(result);
+            return res.json({recipes: result});
+        }catch(e){
+            next(e);
+        }
+    }
+
+    async deleteRecipe(req, res, next){
+        try{
+            const recipeId = req.body.recipeId
+            //console.log(comment)
+            const result = await RecipeService.deleteRecipe(recipeId);
+            //console.log(result)
+            //return res.json({comments: result});
         }catch(e){
             next(e);
         }

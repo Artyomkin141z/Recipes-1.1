@@ -9,4 +9,9 @@ export default class CatalogService {
         //console.log(ingredient);
         return $api.post('/catalog/create/ingredient', {ingredient})
     } 
+
+    static async getRecipesTitles(){
+        //console.log(ingredient);
+        return $api.get('/catalog/get/recipes')
+    } 
 }

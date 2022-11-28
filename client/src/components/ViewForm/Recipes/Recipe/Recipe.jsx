@@ -2,6 +2,7 @@ import style from './style.module.css';
 import img from '../../../../assets/images/bibimbap.png'
 import imgServings from '../../../../assets/images/restaurant.png'
 import imgTime from '../../../../assets/images/back-in-time.png'
+import { Link } from 'react-router-dom';
 
 function Recipe(props){
     //console.log(props.recipe.categories)

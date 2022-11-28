@@ -78,7 +78,30 @@ class RecipeService {
 
     async getRecipeComments(recipeId){
         const result =  await query(recipeQueries.getRecipeComments(recipeId))
+        //console.log(result);
+        return result.recordsets[0];
+    }
+
+    async deleteUserRecipeCommment(commentId){
+        const result =  await query(recipeQueries.deleteUserRecipeCommment(commentId))
         console.log(result);
+        return result.recordsets[0];
+    }
+
+    async searchRecipes(ingredientId, serchStr){
+        if(serchStr == '0') serchStr = '';
+        const result =  await query(recipeQueries.searchRecipes(ingredientId, serchStr))
+        return result.recordsets;
+    }
+
+    async getRecipesTitles(){
+        const result =  await query(recipeQueries.getRecipesTitles())
+        return result.recordsets;
+    }
+
+    async deleteRecipe(recipeId){
+        const result =  await query(recipeQueries.deleteRecipe(recipeId))
+        //console.log(result.recordsets[0]);
         return result.recordsets[0];
     }
 }

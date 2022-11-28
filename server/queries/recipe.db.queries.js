@@ -50,7 +50,7 @@ class RecipeRequests {
     }
 
     getLikes(recipeId, userId){
-        console.log(`exec getLikesRecipe '${recipeId}', '${userId}'`)
+        //console.log(`exec getLikesRecipe '${recipeId}', '${userId}'`)
         if(userId) return `exec getLikesRecipe '${recipeId}', '${userId}'`;
         else return `exec getLikesRecipe '${recipeId}'`;
     }
@@ -69,6 +69,23 @@ class RecipeRequests {
 
     getRecipeComments(recipeId){
         return `exec getRecipeComments ${recipeId}`
+    }
+
+    deleteUserRecipeCommment(commentId){
+        return `exec deleteRecipeComment '${commentId}'`
+    }
+
+    searchRecipes(ingredientId, serchStr){
+        console.log(`exec searchRecipes ${ingredientId}, '${serchStr}'`)
+        return `exec searchRecipes ${ingredientId}, '${serchStr}'`
+    }
+
+    getRecipesTitles(){
+        return `select * from recipes`
+    }
+
+    deleteRecipe(recipeId){
+        return `exec deleteRecipe ${recipeId}`
     }
 }
 
