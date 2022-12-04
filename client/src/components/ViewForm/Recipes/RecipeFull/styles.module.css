@@ -146,3 +146,17 @@
     width: 30px;
     height: 30px;
 }
+
+
+.advice{
+    position: relative;
+}
+
+.titleAdvice{
+    position: absolute;
+    top: 0;
+    width: 150px;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}

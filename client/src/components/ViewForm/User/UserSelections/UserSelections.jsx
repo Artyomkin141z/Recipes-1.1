@@ -18,7 +18,7 @@ const UserRecipes = () => {
             //setUser(response.data.user);
             const selections = response.data.selections;
             setSelectionList(selections);
-            console.log(selections);
+            // console.log(selections);
             //console.log(response.data.user);
         }catch(e){
             console.log(e)

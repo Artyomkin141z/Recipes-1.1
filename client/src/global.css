@@ -22,3 +22,19 @@ a{
     margin: 0 auto;
     padding: 0 10px;
 }
+
+.snackbarError div{
+    background-color: #E13E3E;
+}
+
+.snackbar{
+    
+}
+
+.snackbarCloseImg{
+    margin: 10px;
+    height: 15px;
+    width: 15px;
+    right: 0;
+    cursor: pointer;
+}

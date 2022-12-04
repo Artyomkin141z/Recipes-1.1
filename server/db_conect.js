@@ -3,8 +3,8 @@ const sql = require('mssql')
 var config = {
     user: 'sa',
     password: '1111',
-    port: 1533,
-    server: 'GI_ARTIK\\GI_ARTIK2', 
+    port: 1523,
+    server: 'GILA\\GILA', 
     database: 'RecipesDB',
     synchronize: true,
     trustServerCertificate: true,

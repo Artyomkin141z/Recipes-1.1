@@ -1,4 +1,7 @@
 import styles from './style.module.css'
+import closeImg from '../../../assets/images/close.png'
+
+import { Snackbar, IconButton } from '@mui/material';
 
 import React, { useContext, useState } from "react";
 import { Context } from '../../..';
@@ -12,8 +15,36 @@ const RegistrForm = () => {
     const [password, setPassword] = useState('');
     const {store} = useContext(Context)
 
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState('error');
+    const [snackbarClass, setSnackbarClass] = useState();
+
+    const action = (
+        <>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={() => setOpen(false)}
+            >
+            <img className={'snackbarCloseImg'}src={closeImg} alt='Закрыть'
+                onClick={() => setOpen(false)}
+            />
+            </IconButton>
+        </>
+    );
+
     return (
         <div className={styles.form}>
+            <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={() => setOpen(false)}
+                message={message}
+                action={action}
+                className={snackbarClass}
+            >
+            </Snackbar>
             <div className={styles.container}>
                 <div className={styles.registr}>
                     <h2>РЕГИСТРАЦИЯ</h2>
@@ -54,7 +85,25 @@ const RegistrForm = () => {
                         />
                     </div>
                     <button
-                        onClick={() => {store.registration(name, surname, email, password)}}
+                        onClick={() => {
+                            let result;
+                            store.registration(name, surname, email, password)
+                            .then(res => {result = res})
+                            .then(() => {
+                                if(result.status === 200){
+                                    console.log(result);
+                                    setOpen(true);
+                                    setMessage('Вы успешно зарегистрировались');
+                                    setSnackbarClass('snackbar');
+                                }
+                                else{
+                                    console.log(result);
+                                    setOpen(true);
+                                    setMessage(result.message);
+                                    setSnackbarClass('snackbarError');
+                                }  
+                            })
+                        }}
                     >Вперед</button>
                 </div>
             </div>

@@ -18,13 +18,13 @@ function RecipesList({isSerch}){
     async function getRecipes(){
         setLoading(true);
         try{
-            console.log('Рендеринг');
-            console.log('ingredientId', ingredientId, 'serchStr', serchStr);
+            // console.log('Рендеринг');
+            // console.log('ingredientId', ingredientId, 'serchStr', serchStr);
             if(ingredientId !== '0' && ingredientId !== undefined || serchStr  !== '0' && serchStr !== undefined){
                 const response = await RecipeService.searchRecipes(ingredientId, serchStr);
                 //setUser(response.data.user);
                 const recipes = response.data.recipes;
-                console.log(recipes);
+                // console.log(recipes);
                 setRecipeList(recipes[0]);
             }
             else{
@@ -32,7 +32,7 @@ function RecipesList({isSerch}){
                 //setUser(response.data.user);
                 const recipes = response.data.recipes;
                 setRecipeList(recipes[0]);
-                console.log(recipes);
+                // console.log(recipes);
                 //console.log(response.data.user);
             }   
         }catch(e){

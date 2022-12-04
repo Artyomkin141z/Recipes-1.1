@@ -95,10 +95,10 @@ const CreateSelection = () => {
                     </div>
                     <div className={styles.recipes_inputContainer}>
                         <DatalistInput
-                            placeholder="Ингредиент"
+                            placeholder="Рецепты"
                             value={ingredientValue}
                             setValue={setIngredientValue}
-                            label="Выберите ингредиент"
+                            label="Выберите рецепт"
                             showLabel={true}
                             items={[...recipes]}
                             onSelect={(item) => {

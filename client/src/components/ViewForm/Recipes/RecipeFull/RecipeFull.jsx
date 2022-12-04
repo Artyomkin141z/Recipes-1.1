@@ -24,6 +24,16 @@ const RecipeFull = ({recipe}) => {
     const [numberLikes, setNumberLikes] = useState();
     const [isLikes, setIsLikes] = useState()
 
+    function printAdvice(){
+        if(recipe.advice){
+            return (
+                <RecipeAdvice 
+                    advice = {recipe.advice}
+                />
+            )
+        }
+    }
+
     async function checkLikes(){
         setLoading(true);
         try{
@@ -43,7 +53,7 @@ const RecipeFull = ({recipe}) => {
         }
     }
 
-    async function addLike(n){
+    async function addLike(){
         setLoading(true);
         try{
             const response = await RecipeService.addLike(recipe.recipeId);
@@ -147,9 +157,7 @@ const RecipeFull = ({recipe}) => {
                     steps = {recipe.steps}
                     time = {recipe.time}
                 />
-                <RecipeAdvice 
-                    advice = {recipe.advice}
-                />
+                {printAdvice()}
             </div>
             <Comments/>   
         </div>

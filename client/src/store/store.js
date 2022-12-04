@@ -36,8 +36,9 @@ export default class Store{
             this.setUser(response.data.user.id)
             console.log(response.data.user);
             return response.status
-        }catch(e){
+        }catch(e){    
             console.log(e.response?.data?.message)
+            return e.response?.data?.message
         }
     }
 
@@ -58,8 +59,8 @@ export default class Store{
             return await AuthService.registration(name, surname, login, password);
             //console.log('responce', responce);
         }catch(e){
-            window.message = 'message'
             console.log(e.response?.data?.message)
+            return e.response?.data?.message
         }
     }
 
@@ -73,6 +74,7 @@ export default class Store{
             this.setUser(response.data.user.id)
         }catch(e){
             console.log(e.response?.data?.message)
+            return e.response?.data?.message;
         }finally{
             this.setLoading(false);
         }

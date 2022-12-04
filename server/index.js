@@ -7,6 +7,7 @@ const routerRecipe = require('./router/recipe.routes')
 const routerCatalog = require('./router/catalog.routes')
 const routerSelection = require('./router/selection.routes')
 const errorMiddleware = require('./middleware/error.middleware')
+const query = require('./db_conect')
 
 const PORT = process.env.PORT || 8080
 const app = express()
@@ -27,6 +28,7 @@ const start = async () => {
     try{
         app.listen(PORT, () => {
             console.log('server started on port ', PORT)
+            // query('SELECT DB_NAME()')
         })
     }catch(e) {
         console.log(e);

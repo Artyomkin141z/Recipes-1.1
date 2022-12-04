@@ -17,7 +17,7 @@ const Search = ({setIsShowSearchForm, isShowSearchForm}) => {
             ingredients.forEach(function(item) {
                 item.value = item.ingredient
             });
-            console.log(ingredients)
+            // console.log(ingredients)
             setIngredients(ingredients)
         }catch(e){
             console.log(e);

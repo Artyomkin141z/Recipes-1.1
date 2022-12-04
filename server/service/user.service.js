@@ -40,6 +40,7 @@ class UserService {
         if(result.recordset.length == 0){
             throw ApiError.BadRequest({message: 'Пользователь с таким логином не был найден'})
         }
+        console.log('result:', result)
         const user = result.recordset[0];
 
         const isPassEquels = await bcrypt.compare(password, user.password);
@@ -48,6 +49,7 @@ class UserService {
         }
 
         const admin = await query(userQueries.checkAdmin(user.id))
+        console.log('admin:', admin)
         const isAdmin = admin.recordset[0].admin;
 
         const userDto = new UserDto({

@@ -63,3 +63,11 @@
     cursor: pointer;
     transform: scale(1.05);
 }
+
+.snackbarCloseImg{
+    margin: 10px;
+    height: 15px;
+    width: 15px;
+    right: 0;
+    cursor: pointer;
+}

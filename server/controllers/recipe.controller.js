@@ -9,17 +9,22 @@ class RecipeController {
             //console.log('data.token', tokenService.validateAccessToken(data.token))
             const {name, content, time, energyValue, ingredients, steps, advice} = req.body.recipe;
             //console.log(ingredients.ingredients);
-            const result = await RecipeService.create(id, name, content, ingredients.numberServings, time);
-            const recipeId = result[0].id;
-            const userId = result[0].user_id;
-            //console.log(result[0])
-            if(advice) await RecipeService.createAdvice(recipeId, advice);
-            if(steps.length) await RecipeService.addSteps(recipeId, steps);
-            if(advice) await RecipeService.addEnergyValue(recipeId, energyValue)
-            if(ingredients.ingredients) await RecipeService.addIngredients(recipeId, ingredients.ingredients)
-            //const recipe = await RecipeService.getRecipe(recipeId);
-            //console.log(recipe);
-            return res.json({recipeId: recipeId, userId: userId});
+            if(name){
+                const result = await RecipeService.create(id, name, content, ingredients.numberServings, time);
+                const recipeId = result[0].id;
+                const userId = result[0].user_id;
+                //console.log(result[0])
+                if(advice) await RecipeService.createAdvice(recipeId, advice);
+                if(steps.length) await RecipeService.addSteps(recipeId, steps);
+                if(energyValue) await RecipeService.addEnergyValue(recipeId, energyValue)
+                if(ingredients.ingredients) await RecipeService.addIngredients(recipeId, ingredients.ingredients)
+                //const recipe = await RecipeService.getRecipe(recipeId);
+                //console.log(recipe);
+                return res.json({recipeId: recipeId, userId: userId});
+            }
+            else{
+                return res.status(400);
+            }
         }catch(e){
             next(e);
         }
@@ -83,7 +88,7 @@ class RecipeController {
                     ingredients: recipe[5]
                 },
                 steps: recipe[6],
-                advice: recipe[1][0].advice,
+                advice: recipe[1][0]?.advice,
                 feedback: recipe[4]
             }
             //console.log(result);

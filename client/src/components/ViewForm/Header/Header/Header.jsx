@@ -44,7 +44,11 @@ const Header = (props) => {
         else{
             return (
                 <div className={styles.rigth}>
-                    <div className={styles.search}>
+                    <div className={styles.search}
+                    onClick={() => {
+                        setIsShowSearchForm(true)
+                    }}
+                    >
                         <img src={searcIcon} alt='' />
                         <p>Поиск</p>
                     </div>

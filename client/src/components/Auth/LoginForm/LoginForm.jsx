@@ -1,6 +1,8 @@
 import styles from './style.module.css'
 import closeImg from '../../../assets/images/close.png'
 
+import { Snackbar, IconButton } from '@mui/material';
+
 import React, { useContext, useState } from "react";
 import { Context } from "../../..";
 import {observer} from 'mobx-react-lite'
@@ -9,7 +11,27 @@ import { Link } from 'react-router-dom';
 const LoginForm = (props) => {
     const [login, setLogin] = useState('');
     const [password, setPassword] = useState('');
+
     const {store} = useContext(Context)
+
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState('error');
+    const [snackbarClass, setSnackbarClass] = useState();
+
+    const action = (
+        <>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={() => setOpen(false)}
+            >
+            <img className={'snackbarCloseImg'} src={closeImg} alt='Закрыть'
+                onClick={() => setOpen(false)}
+            />
+            </IconButton>
+        </>
+    );
 
     return (
         <div className={styles.form}
@@ -51,8 +73,16 @@ const LoginForm = (props) => {
                                 .then(() => {
                                     if(status === 200){
                                         props.setState(false)
+                                        setOpen(true);
+                                        setMessage('Вы успешно авторизовались');
+                                        setSnackbarClass('snackbar');
                                     }
-                                    //console.log('status', status)
+                                    else{
+                                        console.log('status', status)
+                                        setOpen(true);
+                                        setMessage(status.message);
+                                        setSnackbarClass('snackbarError');
+                                    }
                                 })
                         }}
                     >Войти</button>
@@ -64,6 +94,15 @@ const LoginForm = (props) => {
                     >Регистрация</Link>
                 </div>
             </div>
+            <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={() => setOpen(false)}
+                message={message}
+                action={action}
+                className={snackbarClass}
+            >
+            </Snackbar>
         </div>
     )
 }

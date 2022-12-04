@@ -93,6 +93,28 @@ const SelectionFull = () => {
             </div>
         }
     }
+    function likeButton(){
+        if(isLikes) {
+            return <div onClick={() => {
+                addLike()
+                setNumberLikes(numberLikes - 1);
+                setIsLikes(false);
+            }} className={styles.heartButton}>
+                <img src={heart1} alt='' />
+                <p>{numberLikes}</p>
+            </div>
+        }
+        else {
+            return <div onClick={() => {
+                addLike()
+                setNumberLikes(numberLikes + 1);
+                setIsLikes(true);
+            }} className={styles.heartButton}>
+                <img src={heart0} alt='' />
+                <p>{numberLikes}</p>
+            </div>
+        }
+    }
     async function addLike(n){
         setLoading(true);
         try{
