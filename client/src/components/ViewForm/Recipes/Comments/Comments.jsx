@@ -6,12 +6,33 @@ import RecipeService from '../../../../services/RecipeService';
 import { useParams } from 'react-router-dom';
 import { Context } from '../../../..';
 
+import { Snackbar, IconButton } from '@mui/material';
+import closeImg from '../../../../assets/images/close.png'
+
 const Comments = ({userId}) => {
     const {store} = useContext(Context)
     const {id} = useParams();
     const [comment, setComment] = useState();
     const [comments, setComments] = useState([])
     useEffect(() => {getRecipeComments()}, [])
+
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState('error');
+    const [snackbarClass, setSnackbarClass] = useState();
+    const action = (
+        <>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={() => setOpen(false)}
+            >
+            <img className={'snackbarCloseImg'} src={closeImg} alt='Закрыть'
+                onClick={() => setOpen(false)}
+            />
+            </IconButton>
+        </>
+    );
 
     async function addRecipeComment(){
         try{
@@ -33,7 +54,7 @@ const Comments = ({userId}) => {
             const comments = response.data.comments
             //setIngredientsInput(ingredients)
             setComments(comments)
-            console.log(comments);
+            // console.log(comments);
         }catch(e){
             console.log(e);
         }finally{
@@ -47,7 +68,7 @@ const Comments = ({userId}) => {
             const comments = response.data.comments
             //setIngredientsInput(ingredients)
             setComments(comments)
-            console.log(comments);
+            // console.log(comments);
         }catch(e){
             console.log(e);
         }finally{
@@ -62,6 +83,14 @@ const Comments = ({userId}) => {
     }
 
     return <div className={styles.comments}>
+    <Snackbar
+        open={open}
+        autoHideDuration={6000}
+        onClose={() => setOpen(false)}
+        message={message}
+        action={action}
+        className={snackbarClass}
+    ></Snackbar>
         <h2>Комментарии</h2>
         <div className={styles.addComment}>
             <div>
@@ -73,8 +102,20 @@ const Comments = ({userId}) => {
                 ></textarea>
             </div>
             <button onClick={() => {
-                if(comment) {
-                    addRecipeComment();
+                if(localStorage.isAuth === 'true'){
+                    if(comment) {
+                        addRecipeComment();
+                    }
+                    else{
+                        setOpen(true);
+                        setMessage('Напишите что-нибудь');
+                        setSnackbarClass('snackbarError');
+                    }
+                }
+                else{
+                    setOpen(true);
+                    setMessage('Авторизуйтесь');
+                    setSnackbarClass('snackbarError');
                 }
             }}>Добавить комментарий</button>
         </div>

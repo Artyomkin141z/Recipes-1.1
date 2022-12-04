@@ -8,6 +8,8 @@ import heart0 from '../../../../assets/images/heart0.png'
 import heart1 from '../../../../assets/images/heart1.png'
 import deleteImg from '../../../../assets/images/trash.png'
 
+import { Snackbar, IconButton } from '@mui/material';
+import closeImg from '../../../../assets/images/close.png'
 
 const SelectionFull = () => {
     const {id} = useParams();
@@ -18,6 +20,24 @@ const SelectionFull = () => {
     const [selection, setSelection] = useState({selection: {}, selectionsRecipes: []})
     const [isLikes, setIsLikes] = useState()
     const [numberLikes, setNumberLikes] = useState();
+
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState('error');
+    const [snackbarClass, setSnackbarClass] = useState();
+    const action = (
+        <>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={() => setOpen(false)}
+            >
+            <img className={'snackbarCloseImg'} src={closeImg} alt='Закрыть'
+                onClick={() => setOpen(false)}
+            />
+            </IconButton>
+        </>
+    );
     
     async function getSelection(){
         setLoading(true);
@@ -63,6 +83,16 @@ const SelectionFull = () => {
         setLoading(true);
         try{
             const response = await SelectionService.deleteSelection(id);
+            // if(response.status === 200){
+                setOpen(true);
+                setMessage('Рецепт успешно удален');
+                setSnackbarClass('snackbar');
+            // }
+            // else{
+            //     setOpen(true);
+            //     setMessage('Ошибка при удалении рецепта');
+            //     setSnackbarClass('snackbarError');
+            // }
             //console.log(response.data);
             //console.log(response.data.user);
         }catch(e){
@@ -77,6 +107,9 @@ const SelectionFull = () => {
                 addLike()
                 setNumberLikes(numberLikes - 1);
                 setIsLikes(false);
+                setOpen(true);
+                setMessage('Подборка удалена из избранного');
+                setSnackbarClass('snackbar');
             }} className={styles.heartButton}>
                 <img src={heart1} alt='' />
                 <p>{numberLikes}</p>
@@ -87,28 +120,9 @@ const SelectionFull = () => {
                 addLike()
                 setNumberLikes(numberLikes + 1);
                 setIsLikes(true);
-            }} className={styles.heartButton}>
-                <img src={heart0} alt='' />
-                <p>{numberLikes}</p>
-            </div>
-        }
-    }
-    function likeButton(){
-        if(isLikes) {
-            return <div onClick={() => {
-                addLike()
-                setNumberLikes(numberLikes - 1);
-                setIsLikes(false);
-            }} className={styles.heartButton}>
-                <img src={heart1} alt='' />
-                <p>{numberLikes}</p>
-            </div>
-        }
-        else {
-            return <div onClick={() => {
-                addLike()
-                setNumberLikes(numberLikes + 1);
-                setIsLikes(true);
+                setOpen(true);
+                setMessage('Подборка добавлена в избранное');
+                setSnackbarClass('snackbar');
             }} className={styles.heartButton}>
                 <img src={heart0} alt='' />
                 <p>{numberLikes}</p>
@@ -139,6 +153,14 @@ const SelectionFull = () => {
                 {likeButton()}
             </div>
         </div>
+        <Snackbar
+            open={open}
+            autoHideDuration={6000}
+            onClose={() => setOpen(false)}
+            message={message}
+            action={action}
+            className={snackbarClass}
+        ></Snackbar>
         <p className={styles.title}>{selection.selection.title}</p>
         {/* Картинка */}
         <div className={styles.author}>

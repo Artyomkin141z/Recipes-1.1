@@ -4,7 +4,7 @@ import { useState } from 'react'
 import RecipeService from '../../../services/RecipeService';
 import CatalogService from '../../../services/CatalogeService';
 
-const CreateIngredient = ({isShowCreateIngredientForm, setIsShowCreateIngredientForm, setIngredientsInput}) => {
+const CreateIngredient = ({isShowCreateIngredientForm, setIsShowCreateIngredientForm, setIngredientsInput, setOpen, setMessage, setSnackbarClass}) => {
     const [ingredient, setIngredient] = useState();
     const [isLoading, setLoading] = useState(true);
     
@@ -12,12 +12,23 @@ const CreateIngredient = ({isShowCreateIngredientForm, setIsShowCreateIngredient
         setLoading(true);
         try{
             const response = await CatalogService.addIngredient(ingredient);
+            console.log(response)
+            if(response.data.message === 'ok'){
+                setOpen(true);
+                setMessage(`${ingredient} добавлен`);
+                setSnackbarClass('snackbar');
+            }
+            else{
+                setOpen(true);
+                setMessage(`${ingredient} уже есть в каталоге`);
+                setSnackbarClass('snackbarError');
+            }
             const ingredients = response.data.ingredients;
             ingredients.forEach(function(item) {
                 item.value = item.ingredient
             });
             setIngredientsInput(ingredients);
-            console.log(response.data.ingredients);
+            // console.log(response.data.ingredients);
         }catch(e){
             console.log(e)
         }finally{

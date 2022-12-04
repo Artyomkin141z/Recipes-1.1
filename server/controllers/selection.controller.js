@@ -130,6 +130,7 @@ class SelectionController {
             const result = await SelectionService.deleteSelection(id);
             //console.log(result)
             //return res.json({comments: result});
+            return res.json({message: result[0].message});
         }catch(e){
             next(e);
         }

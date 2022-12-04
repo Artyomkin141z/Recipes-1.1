@@ -50,6 +50,10 @@
     align-items: center;
 }
 
+.input input{
+    margin-top: 5px;
+}
+
 .input div{
     margin-bottom: 20px;
 }

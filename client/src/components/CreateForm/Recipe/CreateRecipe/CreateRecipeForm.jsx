@@ -12,10 +12,32 @@ import DatalistInput, { useComboboxControls } from 'react-datalist-input';
 import 'react-datalist-input/dist/styles.css';
 import CatalogService from '../../../../services/CatalogeService';
 
+import { Snackbar, IconButton } from '@mui/material';
+import closeImg from '../../../../assets/images/close.png'
+
 const CreateRecipeForm = () => {
     const { setIngredientValue, ingredientValue } = useComboboxControls({ initialValue: '' });
     const [ingredientsInput, setIngredientsInput] = useState([])
     useEffect(() => {getIngredientsValue()}, [])
+    const [sent, setSent] = useState(false);
+
+    const [open, setOpen] = useState(false);
+    const [message, setMessage] = useState('error');
+    const [snackbarClass, setSnackbarClass] = useState();
+    const action = (
+        <>
+            <IconButton
+                size="small"
+                aria-label="close"
+                color="inherit"
+                onClick={() => setOpen(false)}
+            >
+            <img className={'snackbarCloseImg'} src={closeImg} alt='Закрыть'
+                onClick={() => setOpen(false)}
+            />
+            </IconButton>
+        </>
+    );
     
     async function getIngredientsValue(){
         try{
@@ -65,6 +87,7 @@ const CreateRecipeForm = () => {
         recipe.ingredients.ingredients = ingredients;
         recipe.steps = steps;
         recipe.advice = advice;
+        // console.log(recipe);
         return recipe;
     }
     const [isShowCreateIngredientForm, setIsShowCreateIngredientForm] = useState(false);
@@ -101,10 +124,21 @@ const CreateRecipeForm = () => {
 
     async function createRecipe(){
         try{
-            if(name && time && content && numberServings && calories && proteins && fats && carbohydrates && ingredients && steps){
+            // if(name && time && content && numberServings && calories && proteins && fats && carbohydrates && ingredients && steps){
                 const response = await RecipeService.createRecipe({recipe, token: localStorage.token})
+                if(response.status === 200){
+                    setOpen(true);
+                    setMessage('Рецепт создан');
+                    setSnackbarClass('snackbar');
+                }
+                else{
+                    setOpen(true);
+                    setMessage('Рецепт не создан');
+                    setSnackbarClass('snackbarError');
+                }
+                
                 console.log(response);
-            }        
+            // }        
         }catch(e){
             console.log(e);
         }finally{
@@ -114,15 +148,27 @@ const CreateRecipeForm = () => {
 
     return(
         <div className='container'>
+            <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={() => setOpen(false)}
+                message={message}
+                action={action}
+                className={snackbarClass}
+            >
+            </Snackbar>
             <div className={styles.form}>
                 <CreateIngredient 
                     setIsShowCreateIngredientForm = {setIsShowCreateIngredientForm}
                     isShowCreateIngredientForm = {isShowCreateIngredientForm}
                     setIngredientsInput = {setIngredientsInput}
+                    setOpen = {setOpen}
+                    setMessage = {setMessage}
+                    setSnackbarClass = {setSnackbarClass}
                 />
                 <div className={styles.title}>
                     <p>Название</p>
-                    <input 
+                    <input className={sent && !name ? styles.errorInput : ''}
                         onChange={(e) => {
                             setName(e.target.value)
                         }}
@@ -143,7 +189,8 @@ const CreateRecipeForm = () => {
                     <div className={styles.energy}>
                             <div>
                                 <p>ВРЕМЯ ПРИГОТОВЛЕНИЯ</p>
-                                <input type='number' min='1' max='1000'
+                                <input className={sent && !time ? styles.errorInput : ''}
+                                type='number' min='1' max='1000'
                                     value = {time}
                                     onChange={(e) => {
                                         setTime(e.target.value)
@@ -153,7 +200,8 @@ const CreateRecipeForm = () => {
                             </div>
                             <div>
                                 <p>КАЛОРИЙНОСТЬ</p>
-                                <input type='number' min='1' max='1000'
+                                <input className={sent && !calories ? styles.errorInput : ''}
+                                type='number' min='1' max='1000'
                                     value = {calories}
                                     onChange={(e) => {
                                         setCalories(e.target.value)
@@ -163,7 +211,8 @@ const CreateRecipeForm = () => {
                             </div>
                             <div>
                                 <p>БЕЛКИ</p>
-                                <input type='number' min='1' max='100'
+                                <input className={sent && !proteins ? styles.errorInput : ''}
+                                type='number' min='1' max='100'
                                     value = {proteins}
                                     onChange={(e) => {
                                         setProteins(e.target.value)
@@ -173,7 +222,8 @@ const CreateRecipeForm = () => {
                             </div>
                             <div>
                                 <p>ЖИРЫ</p>
-                                <input type='number' min='1' max='100'
+                                <input className={sent && !fats ? styles.errorInput : ''}
+                                type='number' min='1' max='100'
                                     value = {fats}
                                     onChange={(e) => {
                                         setFats(e.target.value)
@@ -183,7 +233,8 @@ const CreateRecipeForm = () => {
                             </div>
                             <div>
                                 <p>УГЛЕВОДЫ</p>
-                                <input type='number' min='1' max='100'
+                                <input className={sent && !carbohydrates ? styles.errorInput : ''}
+                                type='number' min='1' max='100'
                                     value = {carbohydrates}
                                     onChange={(e) => {
                                         setCarbohydrates(e.target.value)
@@ -196,7 +247,8 @@ const CreateRecipeForm = () => {
                 {/* Основной текст */}
                 <div className={styles.mainText}>
                     <p>Основной текст</p>
-                    <textarea placeholder='Основной текст'
+                    <textarea className={sent && !content ? styles.errorInput : ''}
+                    placeholder='Основной текст'
                         value={content}
                         onChange={(e) => {
                             setContent(e.target.value)
@@ -210,6 +262,7 @@ const CreateRecipeForm = () => {
                         <div className={styles.servings}>
                             <p>Количество порций</p>
                             <input type="number" min="1" max="10"
+                                className={sent && !numberServings ? styles.errorInput : ''}
                                 onChange={(e) => {
                                     if(e.target.value > 10){
                                         e.target.value = 10
@@ -310,8 +363,17 @@ const CreateRecipeForm = () => {
                 <div className={styles.saveRecipe}>
                     <button
                         onClick={() => {
-                            console.log(collectRecipe())
-                            createRecipe();
+                            if(!name || !time || !content || !numberServings || !calories || !proteins || !fats || !carbohydrates || !ingredients){
+                                setSent(true);
+                                setOpen(true);
+                                setMessage('Заполните все обязательные поля');
+                                setSnackbarClass('snackbarError');
+                            }
+                            else{
+                                collectRecipe()
+                                createRecipe();
+                            }
+                            // console.log(collectRecipe())
                         }}
                     >Сохранить</button>
                 </div>

@@ -27,8 +27,8 @@ a{
     background-color: #E13E3E;
 }
 
-.snackbar{
-    
+.snackbar div{
+    background-color: #757575;
 }
 
 .snackbarCloseImg{

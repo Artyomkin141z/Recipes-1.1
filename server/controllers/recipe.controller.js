@@ -6,11 +6,12 @@ class RecipeController {
         try{
             const data = req.body;
             const {id} = tokenService.validateAccessToken(data.token);
-            //console.log('data.token', tokenService.validateAccessToken(data.token))
+            // console.log('data.token', id)
             const {name, content, time, energyValue, ingredients, steps, advice} = req.body.recipe;
-            //console.log(ingredients.ingredients);
+            console.log('req.body.recipe', req.body.recipe);
             if(name){
                 const result = await RecipeService.create(id, name, content, ingredients.numberServings, time);
+                console.log('result', result)
                 const recipeId = result[0].id;
                 const userId = result[0].user_id;
                 //console.log(result[0])
@@ -34,10 +35,10 @@ class RecipeController {
     async createIngredient(req, res, next){
         try{
             const {ingredient} = req.body;
-            console.log(ingredient);
+            // console.log(ingredient);
             const result = await RecipeService.createIngredient(ingredient);
-            console.log(result);
-            return res.json({ingredients: result});
+            // console.log(result);
+            return res.json({ingredients: result[0], message: result[1][0].message});
         }catch(e){
             next(e);
         }
@@ -62,7 +63,7 @@ class RecipeController {
             
             //console.log(userId)
             const recipe = await RecipeService.getRecipe(id);
-            console.log(recipe)
+            // console.log(recipe)
             let isMy = false;
             if(userId == recipe[0][0].user_id){
                 isMy = true;
@@ -240,8 +241,8 @@ class RecipeController {
             const recipeId = req.body.recipeId
             //console.log(comment)
             const result = await RecipeService.deleteRecipe(recipeId);
-            //console.log(result)
-            //return res.json({comments: result});
+            // console.log(result)
+            return res.json({message: result[0].message});
         }catch(e){
             next(e);
         }

@@ -7,7 +7,7 @@ import styles from './styles.module.css'
 const Search = ({setIsShowSearchForm, isShowSearchForm}) => {
     const [ingredient, setIngredient] = useState({id: 0});
     const [ingredients, setIngredients] = useState([]);
-    const [searchStr, setSearchStr] = useState('0');
+    const [searchStr, setSearchStr] = useState('');
     useEffect(() => {getIngredientsValue()}, [])
     
     async function getIngredientsValue(){
@@ -62,7 +62,7 @@ const Search = ({setIsShowSearchForm, isShowSearchForm}) => {
                         />
                         </div>
                     </div>
-                    <Link to={`/recipes/${ingredient.id}/${searchStr}`}><button
+                    <Link to={`/recipes/${ingredient.id}/${searchStr === '' ? '0' : searchStr}`}><button
                     onClick={() => {
                         setIsShowSearchForm(false)
                     }}

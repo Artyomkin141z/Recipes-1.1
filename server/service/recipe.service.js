@@ -8,6 +8,7 @@ const recipeQueries = require('../queries/recipe.db.queries')
 class RecipeService {
     async create(userId, title, content, nServings, time){
         const result = await query(recipeQueries.create(userId, title, content, nServings, time))
+        console.log('RecipeService', result)
         return result.recordset;
     }
 
@@ -25,7 +26,7 @@ class RecipeService {
 
     async createIngredient(ingredient){
         const result =  await query(recipeQueries.createIngredient(ingredient))
-        return result.recordset;
+        return result.recordsets;
     }
 
     async getIngredients(){
